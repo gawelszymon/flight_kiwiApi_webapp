@@ -18,7 +18,7 @@ function App() {
     accept_stopovers: true,
   });
 
-  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value} = event.target;
     console.log(name, value);
     setFormData({
@@ -99,8 +99,104 @@ function App() {
           </div>
           <div className = "clearfix" />
         </div>
-        // flight app form content
+        <div className="container" id="form">
+          <div className='row'>
+            <div className='col-md-12'>
+              <div className="model-search-content">
+                <form onSubmit={handleSubmit}>
+                  <div className="row">
+                    <div className="col-md-offset-1 col-md-2 col-sm-12">
+                      <div className="signle-model-search">
+                        <h2>City from:</h2>
+                        <div className="model-input">
+                          <ComboBox data={data} setCityCode={setCityCode} where="city_from" />
+                        </div>
+                        <div className="model-select-date">
+                          <input style={{ padding: '6px 12px' }} type="date" id="date_to" name="date_to" pattern="\d{1,2}/\d{1,2}/\d{4}" onChange={handleFormChange} required />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-offset-1 col-md-2 col-sm-12">
+                      <div className="single-model-search">
+                        <h2>Max Days on site:</h2>
+                        <div className="model-input">
+                          <input type="number" id="max_days_at_destination" name="max_days_at_destination" step={1} min={2} onChange={handleFormChange} required />
+                        </div>
+                      </div>
+                      <div className="single-model-search">
+                        <h2>Currency:</h2>
+                        <div className="model-select-icon">
+                          <select className="form-control" name='currency' onChange={handleFormChange}>
+                            <option value="EUR">EUR</option>
+                            <option value="PLN">PLN</option>
+                            <option value="USD">USD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="JPY">JPY </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-offset-1 col-md-2 col-sm-12">
+                      <div className="single-model-search">
+                        <h2>Max price for flight:</h2>
+                        <div className="model-input">
+                          <input type="number" id="max_flight_prices" name="max_flight_prices" min={10} step="1" onChange={handleFormChange} required />
+                        </div>
+                        <div className="single-model-search">
+                          <h2>Accept Stopover:</h2>
+                          <div className="model-select-icon">
+                            <select className="form-control" name="accept_stopovers" onChange={handleFormChange}>
+                              <option value="true">Yes</option>
+                              <option value="false">No</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-md-12 col-sm-12">
+                      <div className="single-model-search text-center">
+                        <button className="welcome-btn model-search-btn" type='submit' >
+                          search
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="container">
+            <div className="welcome-hero-txt">
+              <div id="serverResponse" className="animated fadeInUp"></div>
+              <h2>get your desired flight in reasonable price</h2>
+              <p>
+                Choose cities, dates and currency to search!
+              </p>
+              <button className="welcome-btn">Get a subscription!</button>
+            </div>
+          </div>
+        </div>
       </section>
+      <footer id="contact" className="contact">
+        <div className="container">
+          <div className="footer-top">
+          </div>
+          <div className="footer-copyright">
+            <div className="row">
+              <div className="col-sm-6">
+
+              </div>
+              <div className="col-sm-6">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="scroll-Top">
+          <div className="return-to-top">
+            <i className="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" data-original-title="Back to Top" aria-hidden="true" />
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
