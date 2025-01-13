@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import ComboBox from './components/ComboBox';
 import data from "./data/iata_codes.json";
@@ -44,12 +44,10 @@ function App() {
   }
 
   const setCityCode = ({ code, where }: SetCityCodeParams) => {
-    const arr: string[] = [];
-    arr.push(code);
     setFormData((previousState: FormData) => {
       return {
         ...previousState,
-        [where]: arr
+        [where]: code
       };
     });
   };
@@ -70,7 +68,10 @@ function App() {
       console.log('Success: ', data);
       console.log('Api message: ', data.message);
 
-      document.getElementById('serverResponse').innerText = data.message;
+      const serverResponseElement = document.getElementById('serverResponse');
+      if (serverResponseElement) {
+        serverResponseElement.innerText = data.message;
+      }
     } catch (error) {
       console.error('Error: ', error);
     }
@@ -109,7 +110,7 @@ function App() {
                       <div className="signle-model-search">
                         <h2>City from:</h2>
                         <div className="model-input">
-                          <ComboBox data={data} setCityCode={setCityCode} where="city_from" />
+                          <ComboBox data={data} setCityCode={(code) => setCityCode({ code, where: "city_from" })} where="city_from" />
                         </div>
                         <div className="model-select-date">
                           <input style={{ padding: '6px 12px' }} type="date" id="date_to" name="date_to" pattern="\d{1,2}/\d{1,2}/\d{4}" onChange={handleFormChange} required />
